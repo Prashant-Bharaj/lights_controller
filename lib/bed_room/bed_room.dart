@@ -28,18 +28,12 @@ class _BedRoomState extends State<BedRoom> with TickerProviderStateMixin {
   double width = 30;
   late double steps = 20;
   void update() {
-    Timer.periodic(const Duration(microseconds: 5000), (timer) {
+    Timer.periodic(const Duration(milliseconds: 20), (timer) {
       setState(
         () {
           _currentSliderValue < 100
               ? _currentSliderValue = _currentSliderValue + 5
               : timer.cancel();
-          // steps < 350
-          //     ? steps = steps + 20
-          //     : timer.cancel();
-          // if(!timer.isActive) {
-          //   flag = true;
-          // }
         },
       );
     });
@@ -59,16 +53,16 @@ class _BedRoomState extends State<BedRoom> with TickerProviderStateMixin {
     super.initState();
     update();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     animation = Tween(begin: 0.0, end: 200.0).animate(_controller);
     _controller.forward();
     _controller2 =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     animation2 = Tween(begin: 0.0, end: 200.0).animate(_controller2);
     _controller2.forward();
 
     _controller3 =
-        AnimationController(vsync: this, duration: Duration(microseconds: 200));
+        AnimationController(vsync: this, duration: const Duration(microseconds: 200));
     animation3 = Tween(begin: 0.0, end: 200.0).animate(_controller3);
     _controller3.forward();
   }
@@ -122,6 +116,8 @@ class _BedRoomState extends State<BedRoom> with TickerProviderStateMixin {
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.pop(context);
+                                      flag = false;
+                                      _currentSliderValue = 0.0;
                                     },
                                     child: SvgPicture.asset(
                                         'assets/icons/Icon ionic-md-arrow-round-back.svg'),
